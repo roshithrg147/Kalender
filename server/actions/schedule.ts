@@ -1,6 +1,6 @@
 "use server";
 
-import { toZonedTime } from "date-fns-tz";
+import { fromZonedTime } from "date-fns-tz";
 import { DAYS_OF_WEEK_IN_ORDER } from "@/constants";
 import { db } from "@/drizzle/db";
 import { ScheduleAvailabilityTable, ScheduleTable } from "@/drizzle/schema";
@@ -177,12 +177,18 @@ export async function getValidTimesFromSchedule(
       const [startHour, startMinute] = startTime.split(":").map(Number);
       const [endHour, endMinute] = endTime.split(":").map(Number);
 
-      const start = toZonedTime(
-        setMinutes(setHours(date, startHour), startMinute),
+      // Build a date string in the user's timezone, then convert to UTC
+      const base = new Date(date);
+      const year = base.getUTCFullYear();
+      const month = base.getUTCMonth();
+      const day = base.getUTCDate();
+
+      const start = fromZonedTime(
+        new Date(Date.UTC(year, month, day, startHour, startMinute)),
         timezone
       );
-      const end = toZonedTime(
-        setMinutes(setHours(date, endHour), endMinute),
+      const end = fromZonedTime(
+        new Date(Date.UTC(year, month, day, endHour, endMinute)),
         timezone
       );
       return { start, end };
