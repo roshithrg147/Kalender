@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { db } from "@/drizzle/db";
 import { meetingActionSchema } from "@/schema/meetings";
@@ -14,6 +14,7 @@ export async function createMeeting(
     const { success, data } = meetingActionSchema.safeParse(unsafeData);
 
     if (!success) {
+      console.error("Meeting validation failed", unsafeData);
       throw new Error("Invalid data.");
     }
 
@@ -27,16 +28,34 @@ export async function createMeeting(
     });
 
     if (!event) {
+      console.error("Event not found for:", {
+        clerkUserId: data.clerkUserId,
+        eventId: data.eventId,
+      });
       throw new Error("Error not found.");
     }
 
     const startInTimezone = fromZonedTime(data.startTime, data.timezone);
+    console.log(
+      "Requested start time:",
+      data.startTime,
+      "Timezone:",
+      data.timezone,
+      "Converted:",
+      startInTimezone
+    );
+    console.log("Event:", event);
     const validTimes = await getValidTimesFromSchedule(
       [startInTimezone],
       event
     );
+    console.log("Valid times for booking:", validTimes);
 
     if (validTimes.length === 0) {
+      console.error("No valid times for booking. Input:", {
+        startInTimezone,
+        event,
+      });
       throw new Error("Select time is not valid.");
     }
 
