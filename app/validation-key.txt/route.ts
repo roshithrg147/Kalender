@@ -5,7 +5,7 @@ export async function GET() {
   if (!key) {
     return new NextResponse("VALIDATION_KEY not set", { status: 500 });
   }
-  return new NextResponse(`KEY:{${key}}`, {
+  return new NextResponse(key, {
     status: 200,
     headers: {
       "Content-Type": "text/plain",
