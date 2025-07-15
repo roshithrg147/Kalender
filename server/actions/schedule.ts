@@ -184,11 +184,12 @@ export async function getValidTimesFromSchedule(
       const day = base.getUTCDate();
 
       const start = fromZonedTime(
-        new Date(Date.UTC(year, month, day, startHour, startMinute)),
+        setMinutes(setHours(date, startHour), startMinute),
         timezone
       );
+
       const end = fromZonedTime(
-        new Date(Date.UTC(year, month, day, endHour, endMinute)),
+        setMinutes(setHours(date, endHour), endMinute),
         timezone
       );
       return { start, end };
