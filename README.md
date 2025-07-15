@@ -105,6 +105,10 @@ Contributions are welcome! To contribute:
 
 This project is licensed under the MIT License.
 
+## Privacy Policy
+
+View our Privacy Policy at: [https://yourdomain.com/privacy-policy](https://yourdomain.com/privacy-policy)
+
 ## Acknowledgements
 
 - [Next.js](https://nextjs.org/)
