@@ -36,20 +36,20 @@ export async function createMeeting(
     }
 
     const startInTimezone = fromZonedTime(data.startTime, data.timezone);
-    console.log(
-      "Requested start time:",
-      data.startTime,
-      "Timezone:",
-      data.timezone,
-      "Converted:",
-      startInTimezone
-    );
-    console.log("Event:", event);
+    // console.log(
+    //   "Requested start time:",
+    //   data.startTime,
+    //   "Timezone:",
+    //   data.timezone,
+    //   "Converted:",
+    //   startInTimezone
+    // );
+    // console.log("Event:", event);
     const validTimes = await getValidTimesFromSchedule(
       [startInTimezone],
       event
     );
-    console.log("Valid times for booking:", validTimes);
+    // console.log("Valid times for booking:", validTimes);
 
     if (validTimes.length === 0) {
       console.error("No valid times for booking. Input:", {
@@ -71,7 +71,7 @@ export async function createMeeting(
       startTime: data.startTime,
     };
   } catch (error: any) {
-    console.error(`Error creating meeting: ${error.message || error}`);
+    // console.error(`Error creating meeting: ${error.message || error}`);
     throw new Error(`Failed to create meeting: ${error.message || error}`);
   }
 }

@@ -38,7 +38,7 @@ export default function PublicProfile({
         const fetchedEvents = await getPublicEvents(userId);
         setEvents(fetchedEvents);
       } catch (error) {
-        console.log("Error", error);
+        // console.log("Error", error);
         setEvents([]);
       }
     };

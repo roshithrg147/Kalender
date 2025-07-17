@@ -4,8 +4,9 @@ import LandingPage from "../components/LandingPage";
 
 export default async function HomePage() {
   const user = await currentUser();
-  console.log("Current user:", user);
+  // console.log("Current user:", user);
   if (!user) return <LandingPage />;
+
 
   return redirect("/events");
 }
