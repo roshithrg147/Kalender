@@ -5,6 +5,11 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "@/components/Footer";
+// import dynamic from "next/dynamic";
+
+// const PrivateNavBar = dynamic(() => import("@/components/PrivateNavBar"), {
+//   ssr: false,
+// });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +38,10 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased animate-fade-in`}
         >
+          {/* <Script
+            src="https://sdk.minepi.com/pi-sdk.js"
+            strategy="beforeInteractive"
+          /> */}
           {children}
           <Footer />
           <Toaster />

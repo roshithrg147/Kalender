@@ -9,13 +9,14 @@ export default async function EditEventPage({
   params: Promise<{ eventId: string }>;
 }) {
   const { userId, redirectToSignIn } = await auth();
-  if (!userId) return redirectToSignIn();
+  if (!userId) {
+    return redirectToSignIn();
+  }
 
   const { eventId } = await params;
 
   const event = await getEvent(userId, eventId);
-    if (!event) return <h1>Event Not Found</h1>;
-    
+  if (!event) return <h1>Event Not Found</h1>;
 
   return (
     <Card className="max-w-md mx-auto border-4 border-blue-100 shadow-2xl shadow-accent-foreground">
