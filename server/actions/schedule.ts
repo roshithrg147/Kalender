@@ -96,13 +96,17 @@ export async function getValidTimesFromSchedule(
   const end = timesInOrder.at(-1);
 
   // If start or end is missing, there are no times to check
-  if (!start || !end) return [];
+  if (!start || !end) {
+    return [];
+  }
 
   // Fetch the user's saved schedule along with their availabilities
   const schedule = await getSchedule(userId);
 
   // If no schedule is found, return an empty list (user has no availabilities)
-  if (schedule == null) return [];
+  if (schedule == null) {
+    return [];
+  }
 
   // Group availabilities by day of the week (e.g., Monday, Tuesday)
   const groupedAvailabilities = Object.groupBy(
@@ -158,20 +162,38 @@ export async function getValidTimesFromSchedule(
     timezone: string
   ): { start: Date; end: Date }[] {
     const dayOfWeek = (() => {
-      if (isMonday(date)) return "monday";
-      if (isTuesday(date)) return "tuesday";
-      if (isWednesday(date)) return "wednesday";
-      if (isThursday(date)) return "thursday";
-      if (isFriday(date)) return "friday";
-      if (isSaturday(date)) return "saturday";
-      if (isSunday(date)) return "sunday";
+      if (isMonday(date)) {
+        return "monday";
+      }
+      if (isTuesday(date)) {
+        return "tuesday";
+      }
+      if (isWednesday(date)) {
+        return "wednesday";
+      }
+      if (isThursday(date)) {
+        return "thursday";
+      }
+      if (isFriday(date)) {
+        return "friday";
+      }
+      if (isSaturday(date)) {
+        return "saturday";
+      }
+      if (isSunday(date)) {
+        return "sunday";
+      }
       return null;
     })();
 
-    if (!dayOfWeek) return [];
+    if (!dayOfWeek) {
+      return [];
+    }
     const dayAvailabilities = groupedAvailabilities[dayOfWeek];
 
-    if (!dayAvailabilities) return [];
+    if (!dayAvailabilities) {
+      return [];
+    }
 
     return dayAvailabilities.map(({ startTime, endTime }) => {
       const [startHour, startMinute] = startTime.split(":").map(Number);

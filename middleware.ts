@@ -4,7 +4,7 @@ const isPublicRoute = createRouteMatcher([
   "/",
   "/login(.*)",
   "/register(.*)",
-  "/book(.*)",
+"/book(.*)",
   "/api/pi/(.*)",
   "/validation-key.txt",
 ]);

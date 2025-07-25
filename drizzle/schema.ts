@@ -93,3 +93,9 @@ export const ScheduleAvailabilityRelations = relations(
 //   completedAt: timestamp("completed_at"),
 //   // ... other fields
 // });
+
+export const piUsers = pgTable("pi_users", {
+  uid: text("uid").primaryKey(),
+  username: text("username"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
